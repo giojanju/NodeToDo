@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
+const sharp = require('sharp')
 const jwt = require('jsonwebtoken')
 const Task = require('./Task')
 
@@ -41,7 +42,10 @@ const userSchema = new mongoose.Schema({
 			type: String,
 			required: true
 		}
-	}]
+	}],
+	avatar: {
+		type: Buffer
+	}
 }, {
 	timestamps: true
 })
@@ -95,6 +99,17 @@ userSchema.pre('remove', async function (next) {
 
 	next()
 })
+
+userSchema.methods.toJSON = function () {
+	const user = this
+	const userObject = user.toObject()
+
+	delete userObject.password
+	delete userObject.tokens
+	delete userObject.avatar
+
+	return userObject
+}
 
 const User = mongoose.model('User', userSchema)
 
