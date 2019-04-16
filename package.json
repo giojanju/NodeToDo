@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "bcryptjs": "^2.4.3",
+    "env-cmd": "^8.0.2",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.2.3",
@@ -16,7 +18,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "env-cmd ./config/dev.env nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
